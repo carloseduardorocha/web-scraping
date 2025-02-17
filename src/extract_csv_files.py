@@ -65,7 +65,7 @@ def main():
     
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)  # headless=True to run without opening the browser
+            browser = p.chromium.launch(headless=True)
 
             page = browser.new_page()
             page.goto(url_site)
