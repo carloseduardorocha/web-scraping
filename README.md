@@ -34,4 +34,4 @@ To ensure the correct execution of the project, follow the steps below in the ex
 
 ## 🚨 **Got any questions? Watch the tutorial video!** 🚨
 
-- If you have any questions about the **installation process or script execution**, [Watch the tutorial video here]()
+- If you have any questions about the **installation process or script execution**, [Watch the tutorial video here](https://www.loom.com/share/208183e954024062b7beb7739d74cebe?sid=b03bb6c7-67e0-4c24-a59e-adff5bbc0d36)
