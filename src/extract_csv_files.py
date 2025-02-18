@@ -34,6 +34,8 @@ def get_data(page):
         page.wait_for_selector('.nav__item-products > .nav__link')
         page.click('.nav__item-products > .nav__link')
 
+        page.wait_for_load_state('networkidle')
+
         categories          = page.locator('.section-all-products h2.t-heading').all()
         products_containers = page.locator('.section-all-products .products').all()
 
