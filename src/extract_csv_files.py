@@ -4,7 +4,9 @@ import csv
 from dotenv import load_dotenv
 
 load_dotenv()
-url_site = os.getenv("URL_SITE")
+
+url_site        = os.getenv("URL_SITE")
+cookies_storage = os.getenv("STORAGE_STATE_PATH")
 
 def save_csv(data):
     try:
@@ -22,6 +24,7 @@ def save_csv(data):
 def accept_cookies(page):
     try:
         page.locator('.banner-container .buttons-content button span:text("Permitir Todos")').click()
+        page.wait_for_load_state('networkidle')
     except Exception as e:
         print(f"Error accepting cookies: {e}")
 
@@ -29,8 +32,6 @@ def get_data(page):
     data = []
     
     try:
-        accept_cookies(page)
-
         page.wait_for_selector('.nav__item-products > .nav__link')
         page.click('.nav__item-products > .nav__link')
 
@@ -69,8 +70,13 @@ def main():
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
 
-            page = browser.new_page()
+            context = browser.new_context(storage_state=cookies_storage if os.path.exists(cookies_storage) else None)
+            page = context.new_page()
             page.goto(url_site)
+
+            if not os.path.exists(cookies_storage):
+                accept_cookies(page)
+                context.storage_state(path=cookies_storage)
 
             data = get_data(page)
             save_csv(data)
